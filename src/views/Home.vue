@@ -8,6 +8,15 @@
       <div class="img" v-show="uploadedImage">
         <img :src="uploadedImage" :style="{width:slider + '%'}" />
       </div>
+      <v-layout class="els">
+        <v-flex xs12 class="el" v-for="(element,i) in elements" :key="i">
+          <v-layout>
+            <v-flex v-for="(child,i) in element.child" :key="i">
+              <p v-if="child.text">{{child.text}}</p>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -26,7 +35,33 @@ export default {
       slider: 56,
       tile: true,
       uploadedImage: "",
-      img_name: ""
+      img_name: "",
+      elements: [
+        {
+          tag: "ul",
+          col: 1,
+          child: [
+            {
+              tag: "li",
+              col: "xs4",
+              text: "ダミーテキスト",
+              child: null
+            },
+            {
+              tag: "li",
+              col: "xs4",
+              text: "ダミーテキスト",
+              child: null
+            },
+            {
+              tag: "li",
+              col: "xs4",
+              text: "ダミーテキスト",
+              child: null
+            }
+          ]
+        }
+      ]
     };
   },
   computed: {
