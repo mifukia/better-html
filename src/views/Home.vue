@@ -3,16 +3,20 @@
     <v-flex xs3 class="controller">
       <v-slider v-model="slider" :min="0" :max="100" label="Size" thumb-label></v-slider>
       <input type="file" @change="onFileChange" />
+      <v-select :items="cols" label="Standard"></v-select>
+      <v-btn color="primary">ADD</v-btn>
     </v-flex>
     <v-flex xs9 class="main">
       <div class="img" v-show="uploadedImage">
         <img :src="uploadedImage" :style="{width:slider + '%'}" />
       </div>
-      <v-layout class="els">
+      <v-layout class="els" wrap>
         <v-flex xs12 class="el" v-for="(element,i) in elements" :key="i">
           <v-layout>
             <v-flex v-for="(child,i) in element.child" :key="i">
-              <p v-if="child.text">{{child.text}}</p>
+              <div class="el">
+                <p v-if="child.text">{{child.text}}</p>
+              </div>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -36,9 +40,35 @@ export default {
       tile: true,
       uploadedImage: "",
       img_name: "",
+      // elements: [
+      //   {
+      //     tag: "ul",
+      //     col: 1,
+      //     child: [
+      //       {
+      //         tag: "li",
+      //         col: "xs4",
+      //         text: "ダミーテキスト",
+      //         child: null
+      //       },
+      //       {
+      //         tag: "li",
+      //         col: "xs4",
+      //         text: "ダミーテキスト",
+      //         child: null
+      //       },
+      //       {
+      //         tag: "li",
+      //         col: "xs4",
+      //         text: "ダミーテキスト",
+      //         child: null
+      //       }
+      //     ]
+      //   }
+      // ],
       elements: [
         {
-          tag: "ul",
+          tag: "p",
           col: 1,
           child: [
             {
@@ -60,8 +90,14 @@ export default {
               child: null
             }
           ]
+        },
+        {
+          tag: "p",
+          col: 1,
+          child: null
         }
-      ]
+      ],
+      cols: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     };
   },
   computed: {
@@ -90,7 +126,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .controller {
   background: rgb(233, 232, 232);
   padding: 10px;
@@ -98,6 +134,13 @@ export default {
 .main {
   padding-left: 20px;
   border: 1px solid #eee;
+}
+.el {
+  border: 1px solid rgb(233, 232, 232);
+  height: 150px;
+  p {
+    margin: 0;
+  }
 }
 </style>
 
